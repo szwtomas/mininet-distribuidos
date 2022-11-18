@@ -13,4 +13,4 @@ services:
      - /tmp/.X11-unix:/tmp/.X11-unix
      - /lib/modules:/lib/modules
      - ./topology:/topology
-     - ./scripts:/home/scripts
+     - ./scripts:/root/scripts
