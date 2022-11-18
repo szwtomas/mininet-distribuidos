@@ -18,7 +18,7 @@ The docker-compose.yml file also has instructions on how to run the container, a
 
 Once you have al prerequisites installed, just run
 
-`docker-compose run mininet`
+`./run.sh`, or `docker-compose run mininet` to run it manually. In case of permissions error, run `chmod +x run.sh`
 
 This will prompt you to a bash shell inside the container.
 Once inside the container, you should find the `/topology` directory in the root directory (run `cd /`), and the `scripts` directory in the home directory (run `cd`).
