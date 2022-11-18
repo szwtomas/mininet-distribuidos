@@ -26,6 +26,9 @@ Once inside the container, you should find the `/topology` directory in the root
 ## Running scripts
 
 For running our custom topology, just run:
+
 `./scripts/runLinear.sh`.
 
-If a "permission denied" pops up, run the following command inside the scripts directory: `chmod +x runLinear.sh`
+If a "permission denied" pops up, run the following command inside the scripts directory:
+
+`chmod +x runLinear.sh`
