@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-For running this proyect, you should have **Docker** and **Docker Compose** installed on your computer.
+For running this project, you should have **Docker** and **Docker Compose** installed on your computer.
 
-Follow installation instructions on `https://docs.docker.com/engine/install/ubuntu/`.
+Follow installation instructions on [the official Docker documentation](https://docs.docker.com/engine/install/ubuntu/).
 
 The idea behind using Docker for this project is to make dependencies management as simple as possible, considering mininet only runs on Linux environments.
 
