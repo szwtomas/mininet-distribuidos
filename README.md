@@ -20,7 +20,9 @@ The docker-compose.yml file also has instructions on how to run the container, a
 
 First, make sure you have all the requisites installed.
 
-Then, run the following command: `./run.sh -l`. The -l flag is to indicate you are using linux. If you have permission errors, run the command `chmod +x ./run.sh` and try again.
+Then, run the following command: `./run.sh -l`. The -l flag is to indicate you are using linux. If you have permission errors, run the command
+
+`chmod +x ./run.sh` and try again.
 
 This will prompt you a bash command line inside the contaiener, where you have to run pox. For this, run the following command:
 
@@ -38,7 +40,9 @@ This will connect via **ssh** to the existing container that has pox listening. 
 
 First, make sure you have all the requisites installed.
 
-Then, run the following command: `./run.sh`. If you have permission errors, run the command `chmod +x ./run.sh` and try again.
+Then, run the following command: `./run.sh`. If you have permission errors, run the command
+
+`chmod +x ./run.sh` and try again.
 
 This will prompt you a bash command line inside the contaiener, where you have to run pox. For this, run the following command:
 
