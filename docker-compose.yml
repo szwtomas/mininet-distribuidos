@@ -1,6 +1,7 @@
 version: '3'
 services:
   mininet:
+    container_name: mininet
     build:
       context: .
     image: iwaseyusuke/mininet
