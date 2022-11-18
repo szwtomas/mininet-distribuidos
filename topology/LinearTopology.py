@@ -27,8 +27,8 @@ class LinearTopology(Topo):
         self.addLink(h3, switches[len(switches)-1])
         self.addLink(h4, switches[len(switches)-1])
 
-        for i in range(1, len(switches)-1):
-            self.addLink(switches[i-1], switches[i])
+        for i in range(len(switches) - 1):
+            self.addLink(switches[i], switches[i + 1])
 
 
 topos = { "linearTopo": lambda x: LinearTopology(x) }
