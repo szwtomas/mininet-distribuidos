@@ -4,8 +4,11 @@ switchCount=2
 
 class LinearTopology(Topo):
 
-    def __init__(self):
+    def __init__(self, n):
         Topo.__init__(self)
+
+        switchCount = int(n)
+        print(n)
 
         if switchCount <= 0:
             raise ValueError("switchCount must be greater than 0")
@@ -31,4 +34,4 @@ class LinearTopology(Topo):
             self.addLink(switches[i-1], switches[i])
 
 
-topos = { "linearTopo": lambda: LinearTopology() }
+topos = { "linearTopo": lambda x: LinearTopology(x) }
