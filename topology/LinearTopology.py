@@ -1,11 +1,11 @@
 from mininet.topo import Topo
 
-switchCount = 2
+switchCount=2
 
 class LinearTopology(Topo):
 
     def __init__(self):
-        Topo.__init__(self, switchCount=2)
+        Topo.__init__(self)
 
         if switchCount <= 0:
             raise ValueError("switchCount must be greater than 0")
@@ -31,4 +31,4 @@ class LinearTopology(Topo):
             self.addLink(switches[i-1], switches[i])
 
 
-topos = { "linearTopo": lambda length: LinearTopology(length) }
+topos = { "linearTopo": lambda: LinearTopology() }
