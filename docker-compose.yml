@@ -12,4 +12,4 @@ services:
     volumes:
      - /tmp/.X11-unix:/tmp/.X11-unix
      - /lib/modules:/lib/modules
-     - ./mis_archivos_locos:/mis_archivos_locos
+     - ./topology/topology

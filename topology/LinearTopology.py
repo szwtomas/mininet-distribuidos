@@ -21,7 +21,6 @@ class LinearTopology(Topo):
             newSwitch = self.addSwitch(switchName)
             switches.append(newSwitch)
 
-
         self.addLink(h1, switches[0])
         self.addLink(h2, switches[0])
 
