@@ -1,14 +1,11 @@
 from mininet.topo import Topo
 
-switchCount=2
-
 class LinearTopology(Topo):
 
     def __init__(self, n):
         Topo.__init__(self)
 
         switchCount = int(n)
-        print(n)
 
         if switchCount <= 0:
             raise ValueError("switchCount must be greater than 0")
