@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 
-docker-compose run mininet
 
+
+if [ $1 == "-l" ]; then
+    sudo docker compose run mininet
+else
+    docker-compose run mininet
+fi
