@@ -1,4 +1,0 @@
-DROP_PORT = 5001
-HTTP_PORT = 80
-
-RULES_PATH = "rules.json"
