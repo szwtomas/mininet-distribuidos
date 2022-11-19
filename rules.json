@@ -1,0 +1,8 @@
+{
+  "r1_enabled": true,
+  "r2_enabled": true,
+  "r3_enabled": true,
+  "r2_blocked_host": "10.0.0.1",
+  "r3_first_blocked": "10.0.0.1",
+  "r3_second_blocked": "10.0.0.2"
+}

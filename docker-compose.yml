@@ -16,3 +16,4 @@ services:
      - ./topology:/topology
      - ./scripts:/root/scripts
      - ./pox:/root/pox
+     - ./rules.json:/root/rules.json
