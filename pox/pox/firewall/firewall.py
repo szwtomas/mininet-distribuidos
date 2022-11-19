@@ -23,10 +23,17 @@ class Firewall(EventMixin):
 
     def parse_configuration(self):
         with open("rules.json", "r") as f:
-            self.rule1, self.rule2, self.rule3, self.h1, self.blocked1, self.blocked2 = list(json.load(f).values())
+            rules = json.load(f)
+        self.rule1 = rules["r1_enabled"]
+        self.rule2 = rules["r2_enabled"]
+        self.rule3 = rules["r3_enabled"]
+        self.h1 = rules["r2_blocked_host"]
+        self.blocked1 = rules["r3_first_blocked"]
+        self.blocked2 = rules["r3_second_blocked"]
 
     def _handle_PacketIn(self, event):
         packet = event.parsed
+        print(packet)
 
         # Ignore Ip packet
         if packet.type != ethernet.IP_TYPE:
@@ -38,6 +45,7 @@ class Firewall(EventMixin):
             match = of.ofp_match.from_packet(packet)
             msg.match = match
             event.connection.send(msg)
+            event.halt = True
 
     def rule_applies(self, packet):
         if self.first_rule_applies() and self.packet_dstport_is_80(packet):
@@ -60,7 +68,7 @@ class Firewall(EventMixin):
     def packet_dstport_is_80(self, link_packet):
         ip_packet = link_packet.payload
 
-        if ip_packet.protocol not in (ipv4.TCP_PROTOCOL or ipv4.UDP_PROTOCOL):
+        if ip_packet.protocol not in (ipv4.TCP_PROTOCOL, ipv4.UDP_PROTOCOL):
             return False
 
         transport_packet = ip_packet.payload
@@ -74,7 +82,7 @@ class Firewall(EventMixin):
         # src is host 1, dst port is 5001 and protocol is UDP
         ip_packet = link_packet.payload
 
-        if ip_packet.protocol not in (ipv4.TCP_PROTOCOL or ipv4.UDP_PROTOCOL):
+        if ip_packet.protocol not in (ipv4.TCP_PROTOCOL, ipv4.UDP_PROTOCOL):
             return False
 
         if ip_packet.srcip != self.h1:
@@ -89,6 +97,7 @@ class Firewall(EventMixin):
 
     def packet_between_uncommunicated_hosts(self, link_packet):
         ip_packet = link_packet.payload
+        print(ip_packet.srcip == self.blocked1)
         if (ip_packet.srcip == self.blocked1 and ip_packet.dstip == self.blocked2) or \
                 (ip_packet.srcip == self.blocked2 and ip_packet.dstip == self.blocked1):
             log.info("Rule 3: Blocking a flow from " + str(ip_packet.srcip) + " to " + str(ip_packet.dstip))

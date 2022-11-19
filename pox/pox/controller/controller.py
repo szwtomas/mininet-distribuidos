@@ -12,8 +12,7 @@ class Controller:
         core.openflow.addListeners(self)
 
     def _handle_ConnectionUp(self, event):
-        if self.firewall_switch == event.dpid:
-            print("firewall")
+        if int(self.firewall_switch) == event.dpid:
             log.info("Firewall set")
             self.firewall = Firewall()
 
