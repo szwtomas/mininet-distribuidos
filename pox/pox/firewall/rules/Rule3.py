@@ -1,9 +1,8 @@
 from .Rule import Rule
 from ..utils import log_rule_block
 
-class Rule3(Rule, object):
+class Rule3(Rule):
     def __init__(self, ip_blocked1="", ip_blocked2=""):
-        super(Rule3, self).__init__()
         self.ip_blocked1 = ip_blocked1
         self.ip_blocked2 = ip_blocked2
 

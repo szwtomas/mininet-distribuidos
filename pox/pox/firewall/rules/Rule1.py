@@ -2,10 +2,9 @@ from .Rule import Rule
 from ..constants import HTTP_PORT
 from ..utils import is_udp_or_tcp, log_rule_block
 
-class Rule1(Rule, object):
+class Rule1(Rule):
     def __init__(self):
-        super(Rule1, self).__init__()
-
+        pass
 
     def evaluate(self, link_packet):
         ip_packet = link_packet.payload

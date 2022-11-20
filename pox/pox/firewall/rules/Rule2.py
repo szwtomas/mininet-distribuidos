@@ -3,9 +3,8 @@ from ..constants import DROP_PORT
 from pox.lib.packet.ipv4 import ipv4
 from ..utils import is_udp_or_tcp, log_rule_block
 
-class Rule2(Rule, object):
+class Rule2(Rule):
     def __init__(self, host=""):
-        super(Rule2, self).__init__()
         self.host = host
 
 
