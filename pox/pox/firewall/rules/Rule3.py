@@ -1,10 +1,9 @@
 from .Rule import Rule
 from ..utils import log_rule_block
 
-class Rule3(Rule):
-
+class Rule3(Rule, object):
     def __init__(self, ip_blocked1="", ip_blocked2=""):
-        super().__init__()
+        super(Rule3, self).__init__()
         self.ip_blocked1 = ip_blocked1
         self.ip_blocked2 = ip_blocked2
 
@@ -26,7 +25,3 @@ class Rule3(Rule):
         is_blocked_2 = ip_packet.srcip == self.ip_blocked2 and ip_packet.dstip == self.ip_blocked1
         is_blocked_1 = ip_packet.srcip == self.ip_blocked1 and ip_packet.dstip == self.ip_blocked2 
         return is_blocked_1 or is_blocked_2
-
-
-
-

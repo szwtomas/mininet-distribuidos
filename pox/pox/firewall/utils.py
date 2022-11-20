@@ -4,7 +4,7 @@ from pox.lib.packet.ipv4 import ipv4
 log = core.getLogger() 
 
 def is_udp_or_tcp(protocol):
-    return protocol in (ipv4.TCP_PROTOCOL or ipv4.UDP_PROTOCOL)
+    return protocol in (ipv4.TCP_PROTOCOL, ipv4.UDP_PROTOCOL)
 
 
 def log_rule_block(rule_number, srcip, dstip):

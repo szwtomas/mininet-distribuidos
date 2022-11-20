@@ -1,13 +1,12 @@
 class Rule():
-
     def __init__(self, is_activated=False):
-        self.is_activated = is_activated
+        self._is_activated = is_activated
 
     def is_activated(self):
-        return self.is_activated
+        return self._is_activated
 
     def set_is_activated(self, activated):
-        self.is_activated = activated
+        self._is_activated = activated
 
-    def verify(self, link_packet):
+    def evaluate(self, link_packet):
         pass
