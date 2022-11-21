@@ -1,7 +1,7 @@
 from pox.core import core
 import pox.openflow.libopenflow_01 as of
 from pox.lib.revent import *
-from pox.lib.packet.ethernet import ethernet
+import pox.lib.packet as pkt
 import json
 
 from .constants import RULES_PATH
@@ -10,13 +10,12 @@ from .rules.Rule2 import Rule2
 from .rules.Rule3 import Rule3
 
 
-firewall_switch_id = None
-
 class Firewall(EventMixin):
-    def __init__(self):
+    def __init__(self, firewall_switch_id):
         self.listenTo(core.openflow)
         self.rules = self._init_rules()
         self._parse_configuration(RULES_PATH)
+        self.firewall_switch_id = firewall_switch_id
 
 
     def _parse_configuration(self, json_path):
@@ -29,19 +28,9 @@ class Firewall(EventMixin):
             self.rules[3].set_ips_to_block(rules_json["r3_first_blocked"], rules_json["r3_second_blocked"])
 
 
-    def _handle_PacketIn(self, event):
-        packet = event.parsed
+    def  _handle_ConnectionUp(self, event):
+        pass
 
-        # Ignore Ip packet
-        if packet.type != ethernet.IP_TYPE:
-            return
-
-        if self.rule_applies(packet):
-            msg = of.ofp_flow_mod()
-            match = of.ofp_match.from_packet(packet)
-            msg.match = match
-            event.connection.send(msg)
-            event.halt = True
 
 
     def rule_applies(self, packet):

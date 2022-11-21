@@ -59,3 +59,12 @@ This will connect via **ssh** to the existing container that has pox listening. 
 ### On windows
 
 First, make sure you have all the requisites installed. Then, stop using windows and install linux, and follow the linux instructions.
+
+
+## Firewall Rules:
+
+1) dst port 80
+
+2) src host 1, dst port 5001, protocol UDP
+
+3) having selected for example host 1 and host 2: src host 1 and dst host 2, or src host 2 and dst host 1
