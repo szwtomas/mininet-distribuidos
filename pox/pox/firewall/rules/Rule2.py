@@ -1,7 +1,10 @@
+from pox.core import core
 from .Rule import Rule
 import pox.openflow.libopenflow_01 as of
 import pox.lib.packet as pkt
 from pox.lib.addresses import IPAddr
+
+log = core.getLogger()
 
 class Rule2(Rule):
     def __init__(self):
@@ -21,3 +24,4 @@ class Rule2(Rule):
         match.nw_src = IPAddr(self.host)
 
         self._send_packet(event, match)
+        log.info("Rule 2 applied")

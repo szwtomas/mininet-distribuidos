@@ -1,7 +1,10 @@
+from pox.core import core
 from .Rule import Rule
 import pox.openflow.libopenflow_01 as of
 import pox.lib.packet as pkt
 from pox.lib.addresses import IPAddr
+
+log = core.getLogger()
 
 class Rule3(Rule):
     def __init__(self):
@@ -24,6 +27,7 @@ class Rule3(Rule):
 
         self._send_packet(event, match)
         self._send_packet(event, match2)
+        log.info("Rule 3 applied")
 
     def set_ips_to_block(self, ip1, ip2):
         self.ip_blocked1 = ip1
