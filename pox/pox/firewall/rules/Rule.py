@@ -1,3 +1,6 @@
+import pox.openflow.libopenflow_01 as of
+import pox.lib.packet as pkt
+
 class Rule():
     def __init__(self, is_activated=False):
         self._is_activated = is_activated
@@ -8,5 +11,10 @@ class Rule():
     def set_is_activated(self, activated):
         self._is_activated = activated
 
-    def evaluate(self, link_packet):
+    def _send_packet(self, event, match):
+        msg = of.ofp_flow_mod()
+        msg.match = match
+        event.connection.send(msg)
+
+    def add_table_rule(self, event):
         pass
