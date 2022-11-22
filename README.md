@@ -24,9 +24,9 @@ Then, run the following command: `./run.sh -l`. The -l flag is to indicate you a
 
 `chmod +x ./run.sh` and try again.
 
-This will prompt you a bash command line inside the contaiener, where you have to run pox. For this, run the following command:
+This will prompt you a bash command line inside the contaiener, where you have to run pox. For this, run the following command (the firewall can be changed):
 
-`./pox/pox.py`
+`pox/pox.py openflow.of_01 forwarding.l2_learning firewall.firewall --firewall_switch=1`
 
 Or whatever pox command you want to use. This will make pox listen, but we still have to run mininet. To do this, open a new tab, go to the root repository directory and run the following script:
 
@@ -44,9 +44,9 @@ Then, run the following command: `./run.sh`. If you have permission errors, run 
 
 `chmod +x ./run.sh` and try again.
 
-This will prompt you a bash command line inside the contaiener, where you have to run pox. For this, run the following command:
+This will prompt you a bash command line inside the contaiener, where you have to run pox. For this, run the following command (the firewall can be changed):
 
-`./pox/pox.py`
+`pox/pox.py openflow.of_01 forwarding.l2_learning firewall.firewall --firewall_switch=1`
 
 Or whatever pox command you want to use. This will make pox listen, but we still have to run mininet. To do this, open a new tab, go to the root repository directory and run the following script:
 
