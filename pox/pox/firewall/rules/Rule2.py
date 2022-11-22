@@ -1,4 +1,5 @@
 from pox.core import core
+from ..constants import DROP_PORT
 from .Rule import Rule
 import pox.openflow.libopenflow_01 as of
 import pox.lib.packet as pkt
@@ -20,7 +21,7 @@ class Rule2(Rule):
         match = of.ofp_match()
         match.dl_type = pkt.ethernet.IP_TYPE
         match.nw_proto = pkt.ipv4.UDP_PROTOCOL
-        match.tp_dst = 5001
+        match.tp_dst = DROP_PORT
         match.nw_src = IPAddr(self.host)
 
         self._send_packet(event, match)
