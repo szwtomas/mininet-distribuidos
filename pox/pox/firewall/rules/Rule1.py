@@ -1,20 +1,22 @@
+from pox.core import core
 from .Rule import Rule
+import pox.openflow.libopenflow_01 as of
+import pox.lib.packet as pkt
 from ..constants import HTTP_PORT
-from ..utils import is_udp_or_tcp, log_rule_block
+
+
+log = core.getLogger()
 
 class Rule1(Rule):
     def __init__(self):
         pass
 
-    def evaluate(self, link_packet):
-        ip_packet = link_packet.payload
+    def add_table_rule(self, event):
+        # block packets with dst port 80
+        match = of.ofp_match()
+        match.dl_type = pkt.ethernet.IP_TYPE
+        match.nw_proto = pkt.ipv4.TCP_PROTOCOL
+        match.tp_dst = HTTP_PORT
 
-        if not is_udp_or_tcp(ip_packet.protocol):
-            return False
-
-        transport_packet = ip_packet.payload
-        if transport_packet.dstport == HTTP_PORT:
-            log_rule_block(1, ip_packet.srcip, ip_packet.dstip)
-            return True
-
-        return False
+        self._send_packet(event, match)
+        log.info("Rule 1 applied")

@@ -1,26 +1,34 @@
+from pox.core import core
 from .Rule import Rule
-from ..utils import log_rule_block
+import pox.openflow.libopenflow_01 as of
+import pox.lib.packet as pkt
+from pox.lib.addresses import IPAddr
+
+log = core.getLogger()
 
 class Rule3(Rule):
-    def __init__(self, ip_blocked1="", ip_blocked2=""):
-        self.ip_blocked1 = ip_blocked1
-        self.ip_blocked2 = ip_blocked2
+    def __init__(self):
+        self.ip_blocked1 = ''
+        self.ip_blocked2 = ''
 
+    def add_table_rule(self, event):
+        # Rule 3 could be applied using IPs or MACs (we use IPs)
+        # block packets between from host 1 to host 2
+        match = of.ofp_match()
+        match.dl_type = pkt.ethernet.IP_TYPE
+        match.nw_src = IPAddr(self.ip_blocked1)
+        match.nw_dst = IPAddr(self.ip_blocked2)
 
-    def evaluate(self, link_packet):
-        ip_packet = link_packet.payload
-        if self._should_block_packet(ip_packet):    
-            log_rule_block(3, ip_packet.srcip, ip_packet.dstip)
-            return True
-        return False
+        # block packets between from host 2 to host 1
+        match2 = of.ofp_match()
+        match2.dl_type = pkt.ethernet.IP_TYPE
+        match2.nw_src = IPAddr(self.ip_blocked2)
+        match2.nw_dst = IPAddr(self.ip_blocked1)
 
+        self._send_packet(event, match)
+        self._send_packet(event, match2)
+        log.info("Rule 3 applied")
 
     def set_ips_to_block(self, ip1, ip2):
         self.ip_blocked1 = ip1
         self.ip_blocked2 = ip2
-        
-
-    def _should_block_packet(self, ip_packet):
-        is_blocked_2 = ip_packet.srcip == self.ip_blocked2 and ip_packet.dstip == self.ip_blocked1
-        is_blocked_1 = ip_packet.srcip == self.ip_blocked1 and ip_packet.dstip == self.ip_blocked2 
-        return is_blocked_1 or is_blocked_2

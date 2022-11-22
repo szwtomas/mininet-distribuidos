@@ -1,30 +1,28 @@
-from .Rule import Rule
+from pox.core import core
 from ..constants import DROP_PORT
-from pox.lib.packet.ipv4 import ipv4
-from ..utils import is_udp_or_tcp, log_rule_block
+from .Rule import Rule
+import pox.openflow.libopenflow_01 as of
+import pox.lib.packet as pkt
+from pox.lib.addresses import IPAddr
+
+log = core.getLogger()
 
 class Rule2(Rule):
-    def __init__(self, host=""):
-        self.host = host
+    def __init__(self):
+        self.host = ''
 
 
     def set_host(self, host):
         self.host = host
 
 
-    def evaluate(self, link_packet):
-        # src is host 1, dst port is 5001 and protocol is UDP
-        ip_packet = link_packet.payload
+    def add_table_rule(self, event):
+        # block packets with dst port 5001, src is host 1 and protocol is UDP
+        match = of.ofp_match()
+        match.dl_type = pkt.ethernet.IP_TYPE
+        match.nw_proto = pkt.ipv4.UDP_PROTOCOL
+        match.tp_dst = DROP_PORT
+        match.nw_src = IPAddr(self.host)
 
-        if not is_udp_or_tcp(ip_packet.protocol):
-            return False
-
-        if ip_packet.srcip != self.host:
-            return False
-
-        transport_packet = ip_packet.payload
-        if transport_packet.dstport == DROP_PORT and ip_packet.protocol == ipv4.UDP_PROTOCOL:
-            log_rule_block(2, ip_packet.srcip, ip_packet.dstip)
-            return True
-
-        return False
+        self._send_packet(event, match)
+        log.info("Rule 2 applied")
